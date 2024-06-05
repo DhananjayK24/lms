@@ -9,7 +9,7 @@ from .models import Book, SignUp
 class BooksForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = "__all__"
+        fields = ['title', 'author', 'quantity', 'description']
         labels = {
             "title": "Book Title",
             "author": "Book Author",

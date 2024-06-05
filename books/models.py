@@ -7,6 +7,7 @@ class Book(models.Model):
     author = models.CharField(max_length=150)
     quantity = models.IntegerField()
     description = models.TextField()
+    publisher = models.TextField()
 
 class SignUp(models.Model):
     name = models.CharField(max_length=50)
