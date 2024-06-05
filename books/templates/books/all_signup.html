@@ -1,0 +1,12 @@
+{% extends "books/base.html" %}
+
+{% block title %}All Users{% endblock  %}
+{% block content %}
+
+<ul>
+{% for user in signup %}
+<li>User name: {{user.name}}, Password: {{user.password}}</li>
+{% endfor %}
+</ul>
+
+{% endblock  %}

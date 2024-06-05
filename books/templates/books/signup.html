@@ -1,0 +1,14 @@
+{% extends "books/base.html" %}
+
+{% block title %}Sign Up{% endblock  %}
+
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Signup</button>
+    {% comment %} <a href="{% url 'login' %}">Already have an account?</a> {% endcomment %}
+</form>
+
+{% endblock  %}
