@@ -6,6 +6,7 @@
 <ul>
 {% for book in books %}
 <li>Book Title: {{book.title}}, Book Author: {{book.author}}, Published By: {{book.publisher}}</li>
+<a href="{% url 'update_book' pk=book.pk %}">Update</a>
 {% endfor %}
 </ul>
 

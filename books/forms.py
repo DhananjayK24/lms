@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 
 from .models import Book, SignUp
 
-class BooksForm(forms.ModelForm):
+class AddBookForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = ['title', 'author', 'quantity', 'description']
