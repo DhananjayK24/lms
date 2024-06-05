@@ -68,3 +68,90 @@ button:active {
 .errors label {
   color: #680000;
 }
+
+.login-name-input, .signup-name-input{
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.login-password-input, .signup-password-input{
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.login-button{
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.login-form, .signup-form{
+  justify-content: center;
+  align-items: center;
+  margin-left: 8rem;
+  font-size: large;
+}
+
+a{
+  text-decoration: none;
+}
+
+/* Books css */
+
+.books-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 800px;
+}
+
+.book-item {
+    background-color: #f8f9fa;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.static-text {
+    font-weight: bold;
+}
+
+.book-details {
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Style each detail div */
+.detail {
+    margin-bottom: 5px;
+}
+
+.book-details b {
+    font-weight: bold;
+}
+
+.book-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.book-action {
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.book-action:hover {
+    background-color: #0056b3;
+}

@@ -4,10 +4,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.urls import reverse_lazy
 # from django.contrib.auth.views import LoginView, 
-from django.views.generic.edit import CreateView, FormView, UpdateView
-from django.views.generic.base import TemplateView
+from django.views.generic.edit import CreateView, FormView, UpdateView, DeleteView
 from django.views.generic import ListView
-from django.core.exceptions import ValidationError
 
 from .models import Book, SignUp
 from .forms import AddBookForm, SignupForm, LoginForm
@@ -50,6 +48,12 @@ class UpdateBookView(UpdateView):
     template_name = "books/update_book.html"
     success_url = reverse_lazy('books_list')
 
+class DeleteBookView(DeleteView):
+    model = Book
+    template_name = "books/delete_book.html"
+    success_url = reverse_lazy('books_list')
+    context_object_name = "book"
+
 class BooksListView(ListView):
     model = Book
     template_name = "books/books_list.html"
@@ -63,5 +67,5 @@ class BooksListView(ListView):
 
 class UsersListView(ListView):
     model = SignUp
-    template_name = "books/all_users.html"
+    template_name = "books/users_list.html"
     context_object_name = "users"

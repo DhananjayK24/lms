@@ -5,10 +5,12 @@
 {% block content %}
 
 <form method="POST">
+    <div class="signup-form">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Signup</button>
     {% comment %} <a href="{% url 'login' %}">Already have an account?</a> {% endcomment %}
+    </div>
 </form>
 
 {% endblock  %}

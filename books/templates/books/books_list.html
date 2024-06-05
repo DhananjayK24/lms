@@ -3,11 +3,24 @@
 {% block title %}All Books{% endblock  %}
 {% block content %}
 
-<ul>
-{% for book in books %}
-<li>Book Title: {{book.title}}, Book Author: {{book.author}}, Published By: {{book.publisher}}</li>
-<a href="{% url 'update_book' pk=book.pk %}">Update</a>
-{% endfor %}
+<ul class="books-list">
+    {% for book in books %}
+    <li class="book-item">
+         <div class="book-details">
+            <div class="detail"><span class="static-text">Book Title:</span> {{book.title}}</div>
+            <div class="detail"><span class="static-text">Book Author:</span> {{book.author}}</div>
+            <div class="detail"><span class="static-text">Book Quantity:</span> {{book.quantity}}</div>
+            <div class="detail"><span class="static-text">Book Description:</span> {{book.description}}</div>
+            <div class="detail"><span class="static-text">Published By:</span> {{book.publisher}}</div>
+            {% comment %} <span class="static-text">Login Name:</span> {{login_name}} {% endcomment %}
+        </div>
+        <div class="book-actions">
+            <a href="{% url 'update_book' pk=book.pk %}" class="book-action">Update</a>
+            <a href="{% url 'delete_book' pk=book.pk %}" class="book-action">Delete</a>
+        </div>
+    </li>
+    {% endfor %}
 </ul>
+
 
 {% endblock  %}

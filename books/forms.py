@@ -18,9 +18,9 @@ class AddBookForm(forms.ModelForm):
         }
 
 class SignupForm(forms.Form):
-    name = forms.CharField(label="Enter your name", max_length=100)
-    password = forms.CharField(label="Password", widget=forms.PasswordInput)
-    confirm_password = forms.CharField(label="Confirm Password", widget=forms.PasswordInput)
+    name = forms.CharField(label="Enter your name", max_length=100, widget=forms.TextInput(attrs={'class': 'signup-password-input'}))
+    password = forms.CharField(label="Password", widget=forms.PasswordInput(attrs={'class': 'signup-password-input'}))
+    confirm_password = forms.CharField(label="Confirm Password", widget=forms.PasswordInput(attrs={'class': 'signup-password-input'}))
 
     def clean(self):
         cleaned_data = super().clean()
@@ -43,7 +43,7 @@ class SignupForm(forms.Form):
         return user
 
 class LoginForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'login-password-input'}))
     
     class Meta:
         model = SignUp
@@ -51,6 +51,10 @@ class LoginForm(forms.ModelForm):
         labels = {
             "name": "Name",
             "password": "Password"
+        }
+        widgets = {
+            "name": forms.TextInput(attrs={'class': 'login-name-input'}),
+            "password": forms.PasswordInput(attrs={'class': 'login-password-input'}),
         }
 
     def clean(self):
