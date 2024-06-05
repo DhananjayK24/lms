@@ -24,26 +24,22 @@ class SignUpView(FormView):
 class BookView(CreateView):
     model = Book
     form_class = BooksForm
-    template_name = "books/form.html"
-    success_url = reverse_lazy('books:books')
+    template_name = "books/add_book.html"
+    success_url = reverse_lazy('books_list')
 
 class LoginView(FormView):
     form_class = LoginForm
     template_name = "books/login.html"
-    success_url = 'form'
-    
-    def form_valid(self, form):
-        form
-        return super().form_valid(form)
+    success_url = reverse_lazy('add_book')
 
 class BooksListView(ListView):
-    template_name = "books/books.html"
+    template_name = "books/books_list.html"
 
     model = Book
     context_object_name = "books"
 
 class UsersListView(ListView):
-    template_name = "books/all_signup.html"
+    template_name = "books/all_users.html"
 
     model = SignUp
-    context_object_name = "signup"
+    context_object_name = "users"
