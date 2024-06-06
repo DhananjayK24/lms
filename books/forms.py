@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.exceptions import ValidationError
 
-from .models import Book, SignUp
+from .models import Book, SignUp, Borrow
 
 class AddBookForm(forms.ModelForm):
     class Meta:
@@ -15,6 +15,14 @@ class AddBookForm(forms.ModelForm):
             "author": "Book Author",
             "quantity": "Book Quantity",
             "description": "Book Description",
+        }
+
+class BorrowForm(forms.ModelForm):
+    class Meta:
+        model = Borrow
+        fields = ['book']
+        widgets = {
+            'book': forms.TextInput(attrs={'readonly':'readonly'})
         }
 
 class SignupForm(forms.Form):

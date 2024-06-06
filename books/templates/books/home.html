@@ -1,0 +1,12 @@
+{% extends "books/base.html" %}
+
+{% block title %}Home{% endblock  %}
+
+{% block content %}
+    <div class="center-container">
+        <div class="unique-box">
+        <a href="{% url 'add_book' %}"><button class="styled-button">Publish book</button></a>
+        <a href="{% url 'books_list' %}"><button class="styled-button">Borrow book</button></a>
+        </div>
+    </div>
+{% endblock  %}

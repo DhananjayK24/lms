@@ -3,6 +3,10 @@
 {% block title %}All Books{% endblock  %}
 {% block content %}
 
+<a href="{% url 'user_books' %}"><svg class="icon-container" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" height="40px" width="40px" x="20px" y="20px" viewBox="0 0 24 30" enable-background="new 0 0 24 24" xml:space="preserve"><path d="M22.916,16.777l-1.996,2.994c-0.012,0.019-0.025,0.037-0.04,0.054l-0.001,0.001c-0.017,0.019-0.034,0.037-0.053,0.053  l-0.001,0.001c-0.087,0.074-0.198,0.119-0.321,0.12c-0.001,0-0.001,0-0.002,0s-0.001,0-0.002,0s-0.001,0-0.002,0s-0.001,0-0.002,0  c-0.123-0.001-0.234-0.046-0.321-0.12l-0.001-0.001c-0.019-0.016-0.036-0.034-0.053-0.053c-0.001-0.001-0.001-0.001-0.001-0.001  c-0.015-0.017-0.028-0.035-0.04-0.054l-1.996-2.994c-0.153-0.229-0.091-0.54,0.139-0.693c0.228-0.153,0.539-0.093,0.693,0.139  L20,17.849V9.5C20,8.673,19.327,8,18.5,8h-1C17.224,8,17,7.776,17,7.5S17.224,7,17.5,7h1C19.879,7,21,8.121,21,9.5v8.349  l1.084-1.626c0.154-0.23,0.465-0.291,0.693-0.139C23.007,16.237,23.069,16.548,22.916,16.777z M2,3.003c0,0.014,0,0.026,0.001,0.04  c0.011,0.041,0.017,0.085,0.017,0.129v0.018c0.088,0.464,0.5,0.816,0.992,0.816H15.5c0.276,0,0.5,0.224,0.5,0.5V22.5  c0,0.276-0.224,0.5-0.5,0.5h-14c-0.133,0-0.26-0.053-0.354-0.146S1,22.632,1,22.5L1.018,3.268C1.006,3.181,1,3.093,1,3.003  C1,1.898,1.901,1,3.01,1H15.5C15.776,1,16,1.224,16,1.5S15.776,2,15.5,2H3.01C2.453,2,2,2.45,2,3.003z M2,22h13V5.006H3.01  c-0.361,0-0.7-0.096-0.994-0.263L2,22z"/>
+    {% comment %} <text x="0" y="39" fill="#000000" font-size="15px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">Your Books</text> {% endcomment %}
+</svg></a>
+
 <ul class="books-list">
     {% for book in books %}
     <li class="book-item">
@@ -15,8 +19,13 @@
             {% comment %} <span class="static-text">Login Name:</span> {{login_name}} {% endcomment %}
         </div>
         <div class="book-actions">
+            {% if book.quantity %}
+                <a href="{% url 'borrow' %}?book_id={{ book.id }}" class="book-action">Borrow</a>
+            {% endif %}
+            {% if book.publisher == "{{login_name}}" %}
             <a href="{% url 'update_book' pk=book.pk %}" class="book-action">Update</a>
             <a href="{% url 'delete_book' pk=book.pk %}" class="book-action">Delete</a>
+            {% endif %}
         </div>
     </li>
     {% endfor %}

@@ -1,0 +1,26 @@
+{% extends "books/base.html" %}
+
+{% block title %}Borrowed Books{% endblock  %}
+{% block content %}
+
+{% if books %}
+<ul class="books-list">
+    {% for book in books %}
+    <li class="book-item">
+         <div class="book-details">
+            <div class="detail"><span class="static-text">Book Title:</span> {{book.book.title}}</div>
+            <div class="detail"><span class="static-text">Borrow Date:</span> {{book.borrow_date}}</div>
+            {% comment %} <span class="static-text">Login Name:</span> {{login_name}} {% endcomment %}
+        </div>
+        <div class="book-actions">
+            {% comment %} <a href="{% url 'delete_book' pk=book.pk %}" class="book-action">Delete</a> {% endcomment %}
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<center><h1>No books to display!</h1></center>
+{% endif %}
+
+
+{% endblock  %}

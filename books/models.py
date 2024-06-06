@@ -13,3 +13,7 @@ class SignUp(models.Model):
     name = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
 
+class Borrow(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    user = models.CharField(max_length=150)
+    borrow_date = models.DateField(auto_now_add=True)

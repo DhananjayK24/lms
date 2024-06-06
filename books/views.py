@@ -5,10 +5,11 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 # from django.contrib.auth.views import LoginView, 
 from django.views.generic.edit import CreateView, FormView, UpdateView, DeleteView
+from django.views.generic.base import TemplateView
 from django.views.generic import ListView
 
-from .models import Book, SignUp
-from .forms import AddBookForm, SignupForm, LoginForm
+from .models import Book, SignUp, Borrow
+from .forms import AddBookForm, SignupForm, LoginForm, BorrowForm
 # Create your views here.
 
 class SignUpView(FormView):
@@ -24,7 +25,7 @@ class SignUpView(FormView):
 class LoginView(FormView):
     form_class = LoginForm
     template_name = "books/login.html"
-    success_url = reverse_lazy('add_book')
+    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
         self.request.session['login_name'] = form.cleaned_data['name']
@@ -32,6 +33,9 @@ class LoginView(FormView):
         messages.success(self.request, "Login Successfull!")
         return super().form_valid(form)
     
+class HomeView(TemplateView):
+    template_name = "books/home.html"
+
 class AddBookView(CreateView):
     model = Book
     form_class = AddBookForm
@@ -53,6 +57,46 @@ class DeleteBookView(DeleteView):
     template_name = "books/delete_book.html"
     success_url = reverse_lazy('books_list')
     context_object_name = "book"
+
+class BorrowView(CreateView):
+    model = Borrow
+    form_class = BorrowForm
+    template_name = "books/borrow.html"
+    success_url = reverse_lazy('books_list')
+
+    def get_initial(self):
+        initial = super().get_initial()
+        book_id = self.request.GET.get('book_id')
+        if book_id:
+            book = get_object_or_404(Book, pk=book_id)
+            initial['book'] = book
+        return initial
+
+    def form_valid(self, form):
+        form.instance.user = self.request.session.get('login_name')  
+        book = form.cleaned_data.get('book')
+        user_has_book = Borrow.objects.filter(user=form.instance.user, book=book)
+        if user_has_book:
+            form.add_error('book', 'You already have that book.')
+            return self.form_invalid(form)
+        elif book.quantity>0:
+            book.quantity -= 1
+            book.save()
+            return super().form_valid(form)
+        else:
+            form.add_error('book', 'This book is not available.')
+            return self.form_invalid(form)
+
+class UserBooksView(ListView):
+    model = Borrow
+    template_name = "books/user_books.html"
+    context_object_name = 'books'
+
+    def get_queryset(self):
+        base_query = super().get_queryset()
+        data = base_query.filter(user=self.request.session.get('login_name'))
+        return data
+    
 
 class BooksListView(ListView):
     model = Book
