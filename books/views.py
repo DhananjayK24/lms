@@ -77,7 +77,7 @@ class BorrowView(CreateView):
         book = form.cleaned_data.get('book')
         user_has_book = Borrow.objects.filter(user=form.instance.user, book=book)
         if user_has_book:
-            form.add_error('book', 'You already have that book.')
+            form.add_error('book', 'You already have this book.')
             return self.form_invalid(form)
         elif book.quantity>0:
             book.quantity -= 1
